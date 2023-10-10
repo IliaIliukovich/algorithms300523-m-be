@@ -37,9 +37,11 @@ public class ListFileTree {
             File f1 = new File(szDir + File.separator + sDirList[i]);
 
             if(f1.isFile())
-                System.out.println(szDir + File.separator + sDirList[i]);
-            else
+                System.out.println("File: " + szDir + File.separator + sDirList[i]);
+            else {
+                System.out.println("Moving to dir: " + szDir + File.separator + sDirList[i]);
                 list(szDir + File.separator + sDirList[i]);
+            }
         }
     }
 
