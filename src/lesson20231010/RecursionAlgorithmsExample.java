@@ -18,18 +18,18 @@ public class RecursionAlgorithmsExample {
 //        if (n == 1000) return; // base condition
         int nMin = 0;
         int nMax = 1000;
-        if (n < nMin || n > nMax) return;
+        if (n < nMin || n > nMax) return; // base condition
         someRecursion(n + 1);
     }
 
     public static int someRecursionWithReturnValue(int n) {
-        System.out.println("Currently n = " + n); // some code
+        System.out.println("Currently n = " + n);
 //        if (n == -5) return -5; // base condition;
 //        if (n == 0) return 0; // base condition for sum;
         if (n == 0) return 1; // base condition for multiply;
-//        int value = 1 + someRecursionWithReturnValue(n - 1); // sum
-//        int value = n + someRecursionWithReturnValue(n - 1); // multiply
-        int value = n * someRecursionWithReturnValue(n - 1);
+//        int value = 1 + someRecursionWithReturnValue(n - 1); // will return n
+//        int value = n + someRecursionWithReturnValue(n - 1); // sum
+        int value = n * someRecursionWithReturnValue(n - 1); // multiply
         System.out.println("Currently value = " + value);
         return value;
     }
