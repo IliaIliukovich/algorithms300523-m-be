@@ -20,6 +20,12 @@ public class HanoiTower {
         hanoiRecursive(n, 'A', 'B', 'C');
     }
 
+    /*
+    Рекурсионный алгоритм
+    1. Переместить «n-1» диск с «start» на «middle», используя end.
+    2. Переместить последний диск с «start» на «end».
+    3. Переместить «n-1» диск с «middle» на «end», используя start.
+     */
     private static void hanoiRecursive(int n, char start, char middle, char end) {
         if (n == 1) {
             System.out.println("Move disk 1 from " + start + " to " + end); // base condition;
