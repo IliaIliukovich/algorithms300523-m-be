@@ -28,7 +28,7 @@ public class ListFileTree {
         }
     }
 
-    static void list(String szDir) {
+    public static void list(String szDir) {
         File f = new File(szDir);
         String[] sDirList = f.list();
 
