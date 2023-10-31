@@ -1,34 +1,35 @@
 package lesson20231024;
 
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class CustomDynamicArray {
+public class CustomDynamicArray implements Iterable<Integer> {
 
     private int[] data;
     private int size;
     private int count;
 
-    public CustomDynamicArray(){
+    public CustomDynamicArray(){ // O(1)
         data = new int[1];
         size = 1;
         count = 0;
     }
 
-    public CustomDynamicArray(int capacity){
+    public CustomDynamicArray(int capacity){ // O(n)
         data = new int[capacity];
         size = capacity;
         count = 0;
     }
 
-    public void add(int element){
+    public void add(int element){ // O(n) ---> O(1) amortized
         if (count >= size) {
             growSize();
         }
         data[count++] = element;
     }
 
-    public void addAt(int index, int element) {
+    public void addAt(int index, int element) { // O(n)
         if (index >= count) throw new IndexOutOfBoundsException("Input index is out of bounds");
         if (count >= size) {
             growSize();
@@ -40,38 +41,44 @@ public class CustomDynamicArray {
         count++;
     }
 
-    public void remove(){
+    public void remove(){ // O(1)
         if (count == 0) throw new NoSuchElementException();
         data[count - 1] = 0; // data[count - 1] = null - necessary in case of objects for Garbage Collector
         count--;
-//        shrinkSize();
+//        shrinkSize(); // some resize logic could be here
     }
 
-    public void removeAt(int index){ // TODO
-
-    }
-
-    public void shrinkSize() { //TODO
+    public void removeAt(int index){ // TODO // O(n)
 
     }
 
-    public void set(int index, int data){ //TODO
+    public void shrinkSize() { // O(n)
+        if (count < size) {
+            int[] newData = Arrays.copyOf(data, count);
+            data = newData;
+            size = newData.length;
+        }
+    }
+
+    public void set(int index, int data){ //TODO // O(1)
 
     }
 
-    public int get(int index){ // TODO
+    public int get(int index){ // TODO // O(1)
         return 0;
     }
 
-    public void clear(){ // TODO
-
+    public void clear(){ // O(1)
+        data = new int[1];
+        size = 1;
+        count = 0;
     }
 
-    public boolean contains(int data){
+    public boolean contains(int data){ // O(n)
         return false; // TODO
     }
 
-    public boolean isEmpty(){
+    public boolean isEmpty(){ // O(1)
         return false; // TODO
     }
 
@@ -115,6 +122,17 @@ public class CustomDynamicArray {
         array.remove();
         System.out.println(array);
         array.printInnerStructure();
+
+        array.shrinkSize();
+        array.printInnerStructure();
+
+        array.forEach(System.err::println);
+
+//        Iterator<Integer> iterator = array.iterator();
+//        iterator.next();
+//        iterator.next();
+//        iterator.next();
+//        array.iterator().remove();
     }
 
     @Override
@@ -129,4 +147,24 @@ public class CustomDynamicArray {
     }
 
 
+    @Override
+    public Iterator<Integer> iterator() {
+        return new Iterator<Integer>() {
+            int currentIndex = 0;
+            @Override
+            public boolean hasNext() {
+                return currentIndex < count;
+            }
+
+            @Override
+            public Integer next() {
+                return data[currentIndex++];
+            }
+
+//            @Override
+//            public void remove(){
+//
+//            }
+        };
+    }
 }

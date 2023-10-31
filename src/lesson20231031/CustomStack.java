@@ -30,6 +30,13 @@ public class CustomStack {
         return data[count - 1];
     }
 
+    public boolean isEmpty(){
+        return count == 0;
+    }
+
+    public int search(int element){ // TODO
+        return 0;
+    }
 
     public static void main(String[] args) {
         CustomStack stack = new CustomStack(4);
@@ -43,7 +50,5 @@ public class CustomStack {
         System.out.println(stack.pop());
         System.out.println(stack.pop());
     }
-
-
 
 }
