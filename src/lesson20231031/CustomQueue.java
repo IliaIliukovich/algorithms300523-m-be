@@ -12,12 +12,21 @@ public class CustomQueue {
         tail = -1;
     }
 
-    public void enqueue(int element){ // TODO
-        data[++tail] = element;
+    public void enqueue(int element){
+        if (++tail >= data.length) tail = 0;
+        if (tail == head) throw new RuntimeException("Queue is full");
+        if (head == -1) head = 0;
+        data[tail] = element;
     }
 
-    public int dequeue(){ // TODO
-        return data[++head];
+    public int dequeue(){
+        if (head == -1) throw new RuntimeException("Queue is empty");
+        int result = data[head];
+        if (head == tail) {
+            head = -1;
+            tail = -1;
+        } else if (++head >= data.length) head = 0;
+        return result;
     }
 
     public boolean isEmpty() {
@@ -30,6 +39,7 @@ public class CustomQueue {
 
     public static void main(String[] args) {
         CustomQueue queue = new CustomQueue(5);
+        // Test 1
         queue.enqueue(1);
         queue.enqueue(2);
         queue.enqueue(3);
@@ -40,7 +50,23 @@ public class CustomQueue {
         System.out.println(queue.dequeue());
         System.out.println(queue.dequeue());
         System.out.println(queue.dequeue());
-    }
 
+        // Test 2
+        queue.enqueue(6);
+        queue.enqueue(7);
+        queue.enqueue(8);
+        System.out.println(queue.dequeue());
+        System.out.println(queue.dequeue());
+        System.out.println(queue.dequeue());
+        System.out.println(queue.isEmpty());
+
+        // Test 3
+        queue.enqueue(9);
+        queue.enqueue(10);
+        System.out.println(queue.isEmpty());
+        System.out.println(queue.dequeue());
+        System.out.println(queue.dequeue());
+        System.out.println(queue.isEmpty());
+    }
 
 }
