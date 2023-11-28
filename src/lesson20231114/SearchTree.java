@@ -96,7 +96,55 @@ public class SearchTree {
         return null;
     }
 
-    // O(n*log(n) + n) = O(nlog(n))
+    public int treeHeight(){ // O(n)
+        if (root == null) return 0;
+        Queue<Node> queue = new ArrayDeque<>();
+        Queue<Integer> heightQueue = new ArrayDeque<>();
+        queue.add(root);
+        Integer height = 1;
+        heightQueue.add(height);
+        while (!queue.isEmpty()){
+            Node current = queue.remove();
+            height = heightQueue.remove();
+            if (current.left != null) {
+                queue.add(current.left);
+                heightQueue.add(height + 1);
+            }
+            if (current.right != null) {
+                queue.add(current.right);
+                heightQueue.add(height + 1);
+            }
+        }
+        return height;
+    }
+
+    public int treeHeight2(){ // O(n)
+        class Data {
+            Node node;
+            Integer height;
+
+            public Data(Node node, Integer height) {
+                this.node = node;
+                this.height = height;
+            }
+        }
+        if (root == null) return 0;
+        Data current = new Data(root, 1);
+        Queue<Data> queue = new ArrayDeque<>();
+        queue.add(current);
+        while (!queue.isEmpty()){
+            current = queue.remove();
+            if (current.node.left != null) queue.add(new Data(current.node.left, current.height + 1));
+            if (current.node.right != null) queue.add(new Data(current.node.right, current.height + 1));
+        }
+        return current.height;
+    }
+
+//    public int treeHeight3(){ // O(1) TODO
+//        return root == null ? 0 : root.height;
+//    }
+
+        // O(n*log(n) + n) = O(nlog(n))
     public static Iterable<String> sortWithTree(String[] data) {
         SearchTree searchTree = new SearchTree();
         for (int i = 0; i < data.length; i++) { // O(n)
@@ -114,6 +162,8 @@ public class SearchTree {
         tree.add("F", 100);
         tree.add("K", 100);
         tree.add("X", 100);
+        System.out.println("Tree height: " + tree.treeHeight());
+        System.out.println("Tree height v.2: " + tree.treeHeight2());
 
         System.out.println(tree.find("A"));
         System.out.println(tree.find("B"));
