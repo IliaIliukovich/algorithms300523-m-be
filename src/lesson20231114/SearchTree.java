@@ -10,6 +10,7 @@ public class SearchTree {
     private class Node {
         private String key;
         private Integer value;
+        private Integer height;
 
 //        List<Node> nodes;
         private Node left;
@@ -20,6 +21,7 @@ public class SearchTree {
             this.value = value;
             this.left = null;
             this.right = null;
+            this.height = 1;
         }
     }
 
@@ -55,6 +57,8 @@ public class SearchTree {
         }
         if (key.compareTo(node.key) < 0) node.left = add(node.left, key, value);
         if (key.compareTo(node.key) > 0) node.right = add(node.right, key, value);
+        node.height = 1 + Math.max(node.left != null ? node.left.height : 0,
+                node.right != null ? node.right.height : 0);
         return node;
     }
 
@@ -140,9 +144,9 @@ public class SearchTree {
         return current.height;
     }
 
-//    public int treeHeight3(){ // O(1) TODO
-//        return root == null ? 0 : root.height;
-//    }
+    public int treeHeight3(){ // O(1)
+        return root == null ? 0 : root.height;
+    }
 
         // O(n*log(n) + n) = O(nlog(n))
     public static Iterable<String> sortWithTree(String[] data) {
@@ -164,6 +168,7 @@ public class SearchTree {
         tree.add("X", 100);
         System.out.println("Tree height: " + tree.treeHeight());
         System.out.println("Tree height v.2: " + tree.treeHeight2());
+        System.out.println("Tree height v.3: " + tree.treeHeight3());
 
         System.out.println(tree.find("A"));
         System.out.println(tree.find("B"));
