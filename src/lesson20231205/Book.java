@@ -25,6 +25,30 @@ public class Book implements Comparable<Book>{
                 && (Objects.equals(this.name, another.name));
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public boolean isPresent() {
+        return isPresent;
+    }
+
+    public void setPresent(boolean present) {
+        isPresent = present;
+    }
+
     @Override
     public int hashCode(){
         return Objects.hash(name, price, isPresent);
@@ -37,5 +61,14 @@ public class Book implements Comparable<Book>{
         if (result == 0) result = Double.compare(another.price, price);
         if (result == 0) result = Boolean.compare(another.isPresent, isPresent);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "name='" + name + '\'' +
+                ", price=" + price +
+                ", is=" + isPresent +
+                '}';
     }
 }
