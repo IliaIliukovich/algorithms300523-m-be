@@ -6,22 +6,9 @@ import java.util.List;
 
 public class FractionalKnapsack {
 
-    static class Item{
-        int weight;
-        int price;
-        int fraction;
-
-        public Item(int weight, int price) {
-            this.weight = weight;
-            this.price = price;
-        }
-
-        @Override
-        public String toString() {
-            return "Item{" + "weight=" + weight + ", price=" + price + ", fraction=" + fraction + '}';
-        }
-    }
-
+// Учитывая вес и стоимость n предметов, нам нужно положить эти предметы в рюкзак вместимостью maxCapacity,
+// чтобы получить максимальную общую стоимость в рюкзаке.
+// В Fractional Knapsack мы можем разбивать предметы, чтобы максимизировать общую стоимость рюкзака
     public static void main(String[] args) {
         Item item1 = new Item(10, 3000);
         Item item2 = new Item(5, 1500);
@@ -34,7 +21,7 @@ public class FractionalKnapsack {
         System.out.println("Max price = " + totalPrice);
     }
 
-    private static int fillFractionalKnapsack(List<Item> items, int maxCapacity) {
+    public static int fillFractionalKnapsack(List<Item> items, int maxCapacity) {
         // sorting items by cost;
         items.sort((o1, o2) -> o2.price/ o2.weight - o1.price / o1.weight);
 
@@ -43,7 +30,7 @@ public class FractionalKnapsack {
         int currentCapacity = maxCapacity;
 
         for (Item item : items) {
-            if (currentCapacity - item.weight >= 0) {
+            if (currentCapacity >= item.weight) {
                 // this weight can be picked whole
                 totalPrice += item.price;
                 currentCapacity = currentCapacity - item.weight;
@@ -62,6 +49,22 @@ public class FractionalKnapsack {
         System.out.println("Capacity left = " + currentCapacity);
 
         return totalPrice;
+    }
+
+    static class Item{
+        int weight;
+        int price;
+        int fraction;
+
+        public Item(int weight, int price) {
+            this.weight = weight;
+            this.price = price;
+        }
+
+        @Override
+        public String toString() {
+            return "Item{" + "weight=" + weight + ", price=" + price + ", fraction=" + fraction + '}';
+        }
     }
 
 }
